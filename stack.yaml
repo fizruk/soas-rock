@@ -1,7 +1,7 @@
 resolver:
   url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/6.yaml
 packages:
-- soas-rock
+  - soas-rock
 extra-deps:
-- rock-0.3.1.1@sha256:78ea97956e6db9a8913e420111c2b5bcc5e52122ab56bfd9958606f0857aa25c,3591
-- dependent-hashmap-0.1.0.1@sha256:6d1c20bd79f32d8daebd3cc741f884cc3d093118e3b876eb957defd4c594a966,1892
+  - rock-0.3.1.2@sha256:9df391b2d9e8ef9fb992c86f49b5d77c40a9990ddedfd1b96d89f8967417b14d,3815
+  - dependent-hashmap-0.1.0.1@sha256:6d1c20bd79f32d8daebd3cc741f884cc3d093118e3b876eb957defd4c594a966,1892

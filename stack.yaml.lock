@@ -5,12 +5,12 @@
 
 packages:
 - completed:
-    hackage: rock-0.3.1.1@sha256:78ea97956e6db9a8913e420111c2b5bcc5e52122ab56bfd9958606f0857aa25c,3591
+    hackage: rock-0.3.1.2@sha256:9df391b2d9e8ef9fb992c86f49b5d77c40a9990ddedfd1b96d89f8967417b14d,3815
     pantry-tree:
-      sha256: 4fe1a254b430c7e7203314e4e83b78ec52eed406041f89ca9d3b81e2a91d2e72
+      sha256: dbd531fa18103274a2d1c6ef91487e2c1a61e9effea974c6d9342a7157168a1f
       size: 536
   original:
-    hackage: rock-0.3.1.1@sha256:78ea97956e6db9a8913e420111c2b5bcc5e52122ab56bfd9958606f0857aa25c,3591
+    hackage: rock-0.3.1.2@sha256:9df391b2d9e8ef9fb992c86f49b5d77c40a9990ddedfd1b96d89f8967417b14d,3815
 - completed:
     hackage: dependent-hashmap-0.1.0.1@sha256:6d1c20bd79f32d8daebd3cc741f884cc3d093118e3b876eb957defd4c594a966,1892
     pantry-tree:
