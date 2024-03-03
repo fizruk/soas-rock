@@ -5,7 +5,8 @@
 {-# LANGUAGE LambdaCase #-}
 module Example.STLC where
 
-import Free.Scoped (substitute, FS (Free, Pure), Inc(..), AnnF)
+import Free.Scoped (AnnF (AnnF), FS (Free, Pure), Inc (..),
+                                    substitute, untyped)
 import Free.Scoped.TH (makePatternsAll)
 import Data.Bifunctor.TH
     ( deriveBifoldable, deriveBifunctor, deriveBitraversable )
@@ -72,5 +73,30 @@ churchSucc = Abs TypeBase (Abs TypeBase (Abs TypeBase (App f (App (App n f) x)))
 
 churchTwo :: Term a
 churchTwo = whnf (App churchSucc churchOne)
+
+-- * Utility functions
+
+-- >>> prettyPrint churchTwo
+-- "\955:B. \955:B. (S Z ((\955:B. \955:B. (S Z Z) S Z) Z))"
+prettyPrint :: [String] -> Term String -> String
+prettyPrint freshVars (Abs paramType body) =
+  case freshVars of
+    new : moreFreshVars -> "λ " <> new <> ":" ++ prettyPrint freshVars paramType  ++ ". " ++ prettyPrint moreFreshVars (renameWith new body)
+    [] -> error "not enough fresh variables!"
+prettyPrint freshVars (App f body) = "(" ++ prettyPrint freshVars f ++ " " ++ prettyPrint freshVars body ++ ")"
+prettyPrint freshVars (TypeFun paramType returnType) = "(" ++ prettyPrint freshVars paramType ++ ")" ++ " -> " ++ prettyPrint freshVars returnType
+prettyPrint _freshVars TypeBase = "B"
+prettyPrint _freshVars (Pure var) = var
+
+defaultVars :: [String]
+defaultVars = map pure ['a'..'z'] <> [ "x" <> show index | index <- [(1 :: Int)..] ]
+
+pp :: Show a => Term a -> String
+pp = prettyPrint defaultVars . fmap show
+
+ppT :: Show a => TermT a -> String
+ppT t = case t of
+  Pure{}                      -> pp (untyped t)
+  Free (AnnF (TypeInfo ty) _) -> pp (untyped t) <> " : " <> pp (untyped ty)
 
 -- typecheck :: Term a -> TermT a -> TypeCheck (TermT a)
