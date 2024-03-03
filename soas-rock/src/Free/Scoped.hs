@@ -43,6 +43,7 @@ data FS t a
   | Free (t (Scope (FS t) a) (FS t a))
 
 deriving instance (Eq a, forall x y. (Eq x, Eq y) => Eq (t x y)) => Eq (FS t a)
+deriving instance (Show a, forall x y. (Show x, Show y) => Show (t x y)) => Show (FS t a)
 
 instance Bifunctor t => Functor (FS t) where
   fmap f (Pure x) = Pure (f x)
