@@ -12,7 +12,7 @@ import Data.Bifunctor.TH
 
 data TermF scope term
   = AppF term term       -- (T₁ T₂)
-  | AbsF scope           -- λx. T
+  | AbsF term scope      -- λx:T. t
   | TypeFunF term term   -- T₁ → T₂
   | TypeBaseF            -- B
   deriving (Eq, Show, Functor, Foldable, Traversable)
@@ -33,8 +33,8 @@ whnf :: Term a -> Term a
 whnf = \case
   App fun arg ->
     case whnf fun of
-      Abs body -> whnf (substitute arg body)
-      fun' -> App fun' arg
+      Abs _paramType body -> whnf (substitute arg body)
+      fun'                -> App fun' arg
   term -> term
 
 -- typecheck :: Term a -> TermT a -> TypeCheck (TermT a)
